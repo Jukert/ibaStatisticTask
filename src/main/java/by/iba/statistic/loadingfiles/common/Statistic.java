@@ -88,4 +88,17 @@ public class Statistic {
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
+
+    @Override
+    public String toString() {
+        return "Statistic{" +
+                "id=" + id +
+                ", file=" + file +
+                ", user=" + user.toString() +
+                ", className='" + className + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 }

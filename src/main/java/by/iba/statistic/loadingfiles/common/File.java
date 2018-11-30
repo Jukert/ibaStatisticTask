@@ -77,4 +77,16 @@ public class File {
     public void setStatistics(List<Statistic> statistics) {
         this.statistics = statistics;
     }
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "id=" + id +
+                ", saveTime=" + saveTime +
+                ", weight=" + weight +
+                ", format='" + format + '\'' +
+                ", name='" + name + '\'' +
+                ", statistics=" + statistics +
+                '}';
+    }
 }

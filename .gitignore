@@ -1,5 +1,6 @@
 /target/
 /.idea/
+/src/main/resources/static/files/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
