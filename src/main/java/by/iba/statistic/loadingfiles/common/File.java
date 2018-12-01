@@ -9,20 +9,18 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long saveTime;
-    private double weight;
-    private String format;
+    private long weight;
     private String name;
 
-    @OneToMany(mappedBy = "file")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Statistic> statistics;
 
     public File() {
     }
 
-    public File(long saveTime, double weight, String format, String name) {
+    public File(long saveTime, long weight, String name) {
         this.saveTime = saveTime;
         this.weight = weight;
-        this.format = format;
         this.name = name;
     }
 
@@ -50,17 +48,10 @@ public class File {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(long weight) {
         this.weight = weight;
     }
 
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
 
     public String getName() {
         return name;
@@ -84,7 +75,6 @@ public class File {
                 "id=" + id +
                 ", saveTime=" + saveTime +
                 ", weight=" + weight +
-                ", format='" + format + '\'' +
                 ", name='" + name + '\'' +
                 ", statistics=" + statistics +
                 '}';

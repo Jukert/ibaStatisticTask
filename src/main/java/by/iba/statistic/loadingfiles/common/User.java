@@ -11,15 +11,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Statistic> statistics;
-
     public User() {
     }
-
-
-
     public User(String name) {
         this.name = name;
     }
@@ -38,6 +33,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Statistic> getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(List<Statistic> statistics) {
+        this.statistics = statistics;
     }
 
     @Override

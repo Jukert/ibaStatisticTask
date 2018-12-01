@@ -7,19 +7,16 @@ public class Statistic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
     private File file;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
     private String className;
     private String methodName;
     private long startTime;
     private long endTime;
-
     public Statistic() {
     }
 
@@ -30,8 +27,6 @@ public class Statistic {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
-
 
     public long getId() {
         return id;
