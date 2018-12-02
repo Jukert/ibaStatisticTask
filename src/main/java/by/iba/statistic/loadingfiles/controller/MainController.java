@@ -1,6 +1,8 @@
 package by.iba.statistic.loadingfiles.controller;
 
+import by.iba.statistic.loadingfiles.service.FileService;
 import by.iba.statistic.loadingfiles.service.StatisticService;
+import by.iba.statistic.loadingfiles.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,8 @@ public class MainController {
     private String uploadPath;
     @Autowired
     private StatisticService statisticService;
-
-
+    @Autowired
+    private FileService fileService;
     @GetMapping("/")
     public String main(Model model){
         return "head";
@@ -58,7 +60,18 @@ public class MainController {
                 )
         );
         loadFile.transferTo(filePath);
-        statisticService.add(resultFilename, date, time, filePath.length());
+        by.iba.statistic.loadingfiles.common.File file = fileService.add(
+                resultFilename,
+                DateUtil.getUnix(
+                        String.format(
+                                "%s %s:00",
+                                date,
+                                time
+                        )
+                ),
+                filePath.length()
+        );
+        statisticService.add(resultFilename, file.getId());
         return "redirect:/";
     }
 }

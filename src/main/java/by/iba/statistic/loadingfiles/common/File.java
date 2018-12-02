@@ -12,14 +12,13 @@ public class File {
     private long weight;
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Statistic> statistics;
 
     public File() {
     }
 
-    public File(File file){
-        this.id = file.getId();
+    public File(File file) {
         this.saveTime = file.getSaveTime();
         this.weight = file.getWeight();
         this.name = file.getName();

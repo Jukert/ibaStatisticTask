@@ -7,25 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class StatisticService {
-
     @Autowired
     private StatisticRepo statisticRepo;
-    @Autowired
-    private FileService fileService;
     @Value("${upload.path}")
     private String filePath;
-    public List<Statistic> add(String filename, String date, String time, long length) throws IOException {
+    public List<Statistic> add(String filename, long id){
         String currentPath = String.format(
                 "%s/%s",
                 filePath,
                 filename
         );
         FileReader fileReader = new FileReader(currentPath);
-        return (List<Statistic>) statisticRepo.saveAll(fileReader.read(fileService.add(filename,date,time,length)));
+        return (List<Statistic>)statisticRepo.saveAll(fileReader.read(id));
     }
 }

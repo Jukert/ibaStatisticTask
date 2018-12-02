@@ -10,9 +10,7 @@ public class Statistic {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
     private File file;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String user;
     private String className;
     private String methodName;
     private long startTime;
@@ -20,7 +18,7 @@ public class Statistic {
     public Statistic() {
     }
 
-    public Statistic(File file,User user, String className, String methodName, long startTime, long endTime) {
+    public Statistic(File file,String user, String className, String methodName, long startTime, long endTime) {
         this.file = file;
         this.user = user;
         this.className = className;
@@ -45,11 +43,11 @@ public class Statistic {
         this.file = file;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -90,7 +88,7 @@ public class Statistic {
         return "Statistic{" +
                 "id=" + id +
                 ", file=" + file +
-                ", user=" + user.toString() +
+                ", user=" + user +
                 ", className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", startTime=" + startTime +
