@@ -20,7 +20,8 @@ public class Statistic {
     public Statistic() {
     }
 
-    public Statistic(User user, String className, String methodName, long startTime, long endTime) {
+    public Statistic(File file,User user, String className, String methodName, long startTime, long endTime) {
+        this.file = file;
         this.user = user;
         this.className = className;
         this.methodName = methodName;

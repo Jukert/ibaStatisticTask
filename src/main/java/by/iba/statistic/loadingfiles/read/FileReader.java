@@ -1,5 +1,6 @@
 package by.iba.statistic.loadingfiles.read;
 
+import by.iba.statistic.loadingfiles.common.File;
 import by.iba.statistic.loadingfiles.common.Statistic;
 import by.iba.statistic.loadingfiles.util.ParserUtil;
 
@@ -18,10 +19,10 @@ public class FileReader {
         this.filePath = filePath;
     }
 
-    public List<Statistic> read() throws IOException {
+    public List<Statistic> read(File file) {
         List<Statistic> statistics = new ArrayList<>();
         try(Stream<String> stream = Files.lines(Paths.get(filePath),StandardCharsets.UTF_8)){
-            stream.forEach(s -> statistics.add(ParserUtil.getStatistic(s)));
+            stream.forEach(s -> statistics.add(ParserUtil.getStatistic(s,file)));
         }catch (IOException e){
             e.printStackTrace();
         }

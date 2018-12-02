@@ -25,8 +25,7 @@ public class StatisticService {
                 filePath,
                 filename
         );
-        fileService.add(filename,date,time,length);
         FileReader fileReader = new FileReader(currentPath);
-        return (List<Statistic>) statisticRepo.saveAll(fileReader.read());
+        return (List<Statistic>) statisticRepo.saveAll(fileReader.read(fileService.add(filename,date,time,length)));
     }
 }

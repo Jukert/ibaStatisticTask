@@ -18,6 +18,13 @@ public class File {
     public File() {
     }
 
+    public File(File file){
+        this.id = file.getId();
+        this.saveTime = file.getSaveTime();
+        this.weight = file.getWeight();
+        this.name = file.getName();
+    }
+
     public File(long saveTime, long weight, String name) {
         this.saveTime = saveTime;
         this.weight = weight;
@@ -44,7 +51,7 @@ public class File {
         this.saveTime = saveTime;
     }
 
-    public double getWeight() {
+    public long getWeight() {
         return weight;
     }
 
