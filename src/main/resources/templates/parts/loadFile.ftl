@@ -1,4 +1,5 @@
-<form action="/file" method="post" enctype="multipart/form-data">
+<form action="/file" class="fileLoader" method="post" enctype="multipart/form-data">
+    <h1>Load statistic file</h1>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -9,13 +10,12 @@
         </div>
     </div>
 
-    <div class="well">
-        <div id="datetimepicker1" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm:ss" name="date" type="text"></input>
-            <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-            </span>
+    <div class="input-group mb-2">
+        <div class="input-group-prepend">
+            <div class="input-group-text" data-toggle="tooltip" data-placement="top" title="Time file destroing">date/time</div>
         </div>
+        <input type="text" class="form-control" placeholder="2018-12-03" name="date" id="datepicker">
+        <input type="time" name="time" class="form-control" id="inlineFormInputGroup" placeholder="Username">
     </div>
-    <button >Load</button>
+    <button class="btn btn-primary btn-lg btn-block">Load</button>
 </form>
