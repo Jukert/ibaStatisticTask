@@ -60,7 +60,7 @@ public class MainController {
                 )
         );
         loadFile.transferTo(filePath);
-        by.iba.statistic.loadingfiles.common.File file = fileService.add(
+        by.iba.statistic.loadingfiles.common.File file = fileService.saveFileInfo(
                 resultFilename,
                 DateUtil.getUnix(
                         String.format(

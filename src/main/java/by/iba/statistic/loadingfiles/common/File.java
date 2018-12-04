@@ -9,6 +9,7 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long saveTime;
+    private long dateLoad;
     private long weight;
     private String name;
 
@@ -24,10 +25,11 @@ public class File {
         this.name = file.getName();
     }
 
-    public File(long saveTime, long weight, String name) {
+    public File(long saveTime, long weight, String name, long dateLoad) {
         this.saveTime = saveTime;
         this.weight = weight;
         this.name = name;
+        this.dateLoad = dateLoad;
     }
 
     public File(String name) {
@@ -73,6 +75,14 @@ public class File {
 
     public void setStatistics(List<Statistic> statistics) {
         this.statistics = statistics;
+    }
+
+    public long getNowDate() {
+        return dateLoad;
+    }
+
+    public void setNowDate(long dateLoad) {
+        this.dateLoad = dateLoad;
     }
 
     @Override
