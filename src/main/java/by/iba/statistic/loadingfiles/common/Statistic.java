@@ -8,7 +8,7 @@ public class Statistic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id")
+    @JoinColumn(name = "file_id", nullable = false)
     private File file;
     private String user;
     private String className;
@@ -81,18 +81,5 @@ public class Statistic {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Statistic{" +
-                "id=" + id +
-                ", file=" + file +
-                ", user=" + user +
-                ", className='" + className + '\'' +
-                ", methodName='" + methodName + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                '}';
     }
 }

@@ -13,7 +13,7 @@ public class File {
     private long weight;
     private String name;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "file")
     private List<Statistic> statistics;
 
     public File() {
@@ -85,14 +85,4 @@ public class File {
         this.dateLoad = dateLoad;
     }
 
-    @Override
-    public String toString() {
-        return "File{" +
-                "id=" + id +
-                ", saveTime=" + saveTime +
-                ", weight=" + weight +
-                ", name='" + name + '\'' +
-                ", statistics=" + statistics +
-                '}';
-    }
 }

@@ -4,32 +4,51 @@ $( function() {
 } );
 
 $(document).ready( function () {
+    let pathName = window.location.pathname;
 
-    let pathCondition = false;
-    let headerTableFiles = "<tr>\n" +
-        "            <th scope=\"col\">№</th>\n" +
-        "            <th scope=\"col\">Name</th>\n" +
-        "            <th scope=\"col\">Size</th>\n" +
-        "            <th scope=\"col\">Date destroying</th>\n" +
-        "            <th scope=\"col\">Date load</th>\n" +
-        "        </tr>";
-    let headerTableClasses = "";
-
-
-    if ($("#table_id").length)
-        pathCondition = true;
-
-    let filesTable = function () {
-        $("#table_id>thead").html(headerTableFiles);
-        $('#table_id').DataTable({
-            "ajax": {
-                url: "/tables/files",
-                type: "GET",
-                dataSrc: ""
-            },
-            "columns": [
+    let headersMap = new Map();
+    let columnsMap = new Map();
+    headersMap
+        .set(
+            "files",
+            "<tr>\n" +
+            "            <th scope=\"col\">№</th>\n" +
+            "            <th scope=\"col\">Name</th>\n" +
+            "            <th scope=\"col\">Size</th>\n" +
+            "            <th scope=\"col\">Date destroying</th>\n" +
+            "            <th scope=\"col\">Date load</th>\n" +
+            "        </tr>"
+        )
+        .set(
+            "classes",
+            "<tr>\n" +
+            "            <th scope=\"col\">№</th>\n" +
+            "            <th scope=\"col\">Class name</th>\n" +
+            "            <th scope=\"col\">Method name</th>\n" +
+            "            <th scope=\"col\">User</th>\n" +
+            "            <th scope=\"col\">Method run-time (Minute:Second) </th>\n" +
+            "        </tr>"
+        )
+        .set(
+            "filesById",
+            "<tr>\n" +
+            "            <th scope=\"col\">№</th>\n" +
+            "            <th scope=\"col\">Class name</th>\n" +
+            "            <th scope=\"col\">Method name</th>\n" +
+            "            <th scope=\"col\">User</th>\n" +
+            "            <th scope=\"col\">Method run-time (Minute:Second) </th>\n" +
+            "        </tr>"
+        );
+    columnsMap
+        .set(
+            "files",
+            [
                 { "data": "id" },
-                { "data": "name" },
+                { "data": function (row) {
+                        return "<a href='' class='file-name' data-id='"+row.id+"' >"+row.name+"</a>";
+                    }
+
+                },
                 { "data": "weight" },
                 {
                     "data": "saveTime",
@@ -44,28 +63,69 @@ $(document).ready( function () {
                     }
                 }
             ]
+        )
+        .set(
+            "classes",
+            [
+                { "data": "id" },
+                { "data": "className" },
+                { "data": "methodName" },
+                { "data": "user" },
+                {
+                    "data": function (row) {
+                        return moment.unix(row.endTime-row.startTime).format("mm:ss")
+                    }
+                }
+            ]
+        )
+        .set(
+            "filesById",
+            [
+                { "data": "id" },
+                { "data": "className" },
+                { "data": "methodName" },
+                { "data": "user" },
+                {
+                    "data": function (row) {
+                        return moment.unix(row.endTime-row.startTime).format("mm:ss")
+                    }
+                }
+            ]
+        );
+
+    let loadTable = function (columns,header, page) {
+        $("#table_id>thead").html(header);
+        $('#table_id').DataTable({
+            "ajax": {
+                url: "/tables/api/"+page,
+                type: "GET",
+                dataSrc: ""
+            },
+            "columns": columns
         });
     };
 
-    if (pathCondition)
-        filesTable();
-    pathCondition = false;
+
+    if ($("#table_id").length){
+        let page = pathName.split("/")[2];
+        let column = columnsMap.get(page);
+        let header = headersMap.get(page);
+        if (column != undefined && header != undefined)
+            loadTable(column,header,page);
+        else {
+            //main tables
+        }
+    }
 
 
-
-    $(document).on("click", ".pg-file", function (event) {
+    $(document).on("click",".file-name", function (event) {
         event.preventDefault();
-        filesTable();
-    });
-
-    $(document).on("click",".pg-classes", function (event) {
-        event.preventDefault();
-        $('#table_id').DataTable({
-            "ajax": {
-                url: "/tables/classes",
-                type: "GET",
-                dataSrc: ""
-            }
-        });
+        let column = columnsMap.get("fileById");
+        let header = headersMap.get("fileById");
+        if (column != undefined && header != undefined)
+            loadTable(column,header,"files/"+$(this).attr("data-id"));
+        else {
+            //error
+        }
     })
 });
