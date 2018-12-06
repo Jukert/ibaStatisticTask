@@ -1,6 +1,7 @@
 package by.iba.statistic.loadingfiles.common;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Statistic {
@@ -81,5 +82,25 @@ public class Statistic {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Statistic statistic = (Statistic) o;
+        return id == statistic.id &&
+                startTime == statistic.startTime &&
+                endTime == statistic.endTime &&
+                Objects.equals(file, statistic.file) &&
+                Objects.equals(user, statistic.user) &&
+                Objects.equals(className, statistic.className) &&
+                Objects.equals(methodName, statistic.methodName);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, file, user, className, methodName, startTime, endTime);
     }
 }

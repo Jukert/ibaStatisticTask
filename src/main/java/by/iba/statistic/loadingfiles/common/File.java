@@ -1,7 +1,8 @@
 package by.iba.statistic.loadingfiles.common;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class File {
@@ -12,9 +13,8 @@ public class File {
     private long dateLoad;
     private long weight;
     private String name;
-
-    @OneToMany(mappedBy = "file")
-    private List<Statistic> statistics;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "file")
+    private Set<Statistic> statistics = new HashSet<>();
 
     public File() {
     }
@@ -69,20 +69,19 @@ public class File {
         this.name = name;
     }
 
-    public List<Statistic> getStatistics() {
+    public Set<Statistic> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(List<Statistic> statistics) {
+    public void setStatistics(Set<Statistic> statistics) {
         this.statistics = statistics;
     }
 
-    public long getNowDate() {
+    public long getDateLoad() {
         return dateLoad;
     }
 
-    public void setNowDate(long dateLoad) {
+    public void setDateLoad(long dateLoad) {
         this.dateLoad = dateLoad;
     }
-
 }

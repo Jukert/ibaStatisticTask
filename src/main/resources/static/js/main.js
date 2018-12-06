@@ -57,7 +57,7 @@ $(document).ready( function () {
                     }
                 },
                 {
-                    "data": "nowDate",
+                    "data": "loadDate",
                     "render": function(data) {
                         return moment.unix(data).format("DD/MM/YYYY HH:mm")
                     }

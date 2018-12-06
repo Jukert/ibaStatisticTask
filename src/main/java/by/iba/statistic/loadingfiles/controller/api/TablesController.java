@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/tables/api")
@@ -32,12 +33,8 @@ public class TablesController {
     }
 
     @GetMapping("/files/{file}")
-    public List<Statistic> infoClassesByFileId(@PathVariable File file){
-        List<Statistic> statistics = file.getStatistics();
-        for (Statistic s :
-                statistics) {
-            System.out.println(s.toString());
-        }
-        return statistics;
+    public Set<Statistic> infoClassesByFileId(@PathVariable(name = "file") File file){
+
+        return file.getStatistics();
     }
 }

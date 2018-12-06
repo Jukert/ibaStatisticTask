@@ -1,7 +1,7 @@
 package by.iba.statistic.loadingfiles.repo;
 
 import by.iba.statistic.loadingfiles.common.Statistic;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface StatisticRepo extends JpaRepository<Statistic, Long> {
+public interface StatisticRepo extends CrudRepository<Statistic, Long> {
 }
