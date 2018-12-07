@@ -30,7 +30,7 @@ $(document).ready( function () {
             "        </tr>"
         )
         .set(
-            "filesById",
+            "fileById",
             "<tr>\n" +
             "            <th scope=\"col\">№</th>\n" +
             "            <th scope=\"col\">Class name</th>\n" +
@@ -57,7 +57,7 @@ $(document).ready( function () {
                     }
                 },
                 {
-                    "data": "loadDate",
+                    "data": "dateLoad",
                     "render": function(data) {
                         return moment.unix(data).format("DD/MM/YYYY HH:mm")
                     }
@@ -68,7 +68,10 @@ $(document).ready( function () {
             "classes",
             [
                 { "data": "id" },
-                { "data": "className" },
+                { "data": function (row) {
+                        return row.className;
+                    }
+                },
                 { "data": "methodName" },
                 { "data": "user" },
                 {
@@ -79,7 +82,7 @@ $(document).ready( function () {
             ]
         )
         .set(
-            "filesById",
+            "fileById",
             [
                 { "data": "id" },
                 { "data": "className" },
@@ -96,6 +99,7 @@ $(document).ready( function () {
     let loadTable = function (columns,header, page) {
         $("#table_id>thead").html(header);
         $('#table_id').DataTable({
+            destroy:true,
             "ajax": {
                 url: "/tables/api/"+page,
                 type: "GET",
@@ -117,7 +121,7 @@ $(document).ready( function () {
         }
     }
 
-
+    ///file/{id}
     $(document).on("click",".file-name", function (event) {
         event.preventDefault();
         let column = columnsMap.get("fileById");
@@ -128,4 +132,5 @@ $(document).ready( function () {
             //error
         }
     })
+
 });

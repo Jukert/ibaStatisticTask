@@ -22,10 +22,18 @@ public class StatisticService {
                 filename
         );
         FileReader fileReader = new FileReader(currentPath);
-        return (List<Statistic>)statisticRepo.saveAll(fileReader.read(id));
+        return statisticRepo.saveAll(fileReader.read(id));
     }
 
     public List<Statistic> statisticsListAll() {
-        return (List<Statistic>)statisticRepo.findAll();
+        return statisticRepo.findAll();
+    }
+
+    public List<Statistic> statisticListById(Long id) {
+        return statisticRepo.findByFileId(id);
+    }
+
+    public List<Statistic> statListByClassName(String className) {
+        return statisticRepo.findByClassName(className);
     }
 }

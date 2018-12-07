@@ -1,7 +1,9 @@
 package by.iba.statistic.loadingfiles.repo;
 
 import by.iba.statistic.loadingfiles.common.File;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface FileRepo extends CrudRepository<File, Long> {
+@Repository
+public interface FileRepo extends JpaRepository<File, Long> {
 }

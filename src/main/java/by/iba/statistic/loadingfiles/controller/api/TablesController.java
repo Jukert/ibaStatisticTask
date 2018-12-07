@@ -5,13 +5,9 @@ import by.iba.statistic.loadingfiles.common.Statistic;
 import by.iba.statistic.loadingfiles.service.FileService;
 import by.iba.statistic.loadingfiles.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/tables/api")
@@ -28,13 +24,17 @@ public class TablesController {
 
 
     @GetMapping("/classes")
-    public List<Statistic> informationClasses(){
-        return statisticService.statisticsListAll();
+    public List<Statistic> informationClasses(@RequestParam(name = "name",required = false) String className){
+        System.out.println();
+        if (className== null)
+            return statisticService.statisticsListAll();
+
+        return statisticService.statListByClassName(className);
     }
 
     @GetMapping("/files/{file}")
-    public Set<Statistic> infoClassesByFileId(@PathVariable(name = "file") File file){
-
-        return file.getStatistics();
+    public List<Statistic> infoClassesByFileId(@PathVariable(name = "file") Long id){
+        return statisticService.statisticListById(id);
     }
+
 }

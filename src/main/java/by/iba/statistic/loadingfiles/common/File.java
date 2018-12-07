@@ -1,8 +1,9 @@
 package by.iba.statistic.loadingfiles.common;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class File {
@@ -13,8 +14,6 @@ public class File {
     private long dateLoad;
     private long weight;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "file")
-    private Set<Statistic> statistics = new HashSet<>();
 
     public File() {
     }
@@ -67,14 +66,6 @@ public class File {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Statistic> getStatistics() {
-        return statistics;
-    }
-
-    public void setStatistics(Set<Statistic> statistics) {
-        this.statistics = statistics;
     }
 
     public long getDateLoad() {
