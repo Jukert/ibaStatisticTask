@@ -14,6 +14,7 @@ public class File {
     private long dateLoad;
     private long weight;
     private String name;
+    private boolean fileCondition = false;
 
     public File() {
     }
@@ -74,5 +75,13 @@ public class File {
 
     public void setDateLoad(long dateLoad) {
         this.dateLoad = dateLoad;
+    }
+
+    public boolean isFileCondition() {
+        return fileCondition;
+    }
+
+    public void setFileCondition(boolean fileCondition) {
+        this.fileCondition = fileCondition;
     }
 }

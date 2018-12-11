@@ -1,5 +1,8 @@
 package by.iba.statistic.loadingfiles.controller;
 
+import by.iba.statistic.loadingfiles.common.File;
+import by.iba.statistic.loadingfiles.loader.FileLoader;
+import by.iba.statistic.loadingfiles.service.FileSchedule;
 import by.iba.statistic.loadingfiles.service.FileService;
 import by.iba.statistic.loadingfiles.service.StatisticService;
 import by.iba.statistic.loadingfiles.util.DateUtil;
@@ -12,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -37,41 +38,27 @@ public class MainController {
             @RequestParam String time,
             Model model
     ) throws IOException {
+
         if (loadFile == null || loadFile.getOriginalFilename().isEmpty()){
-            //change model, error load file or file not found....
-            model.addAttribute("error","File not found or name is invalid!!!");
-            model.addAttribute("numberError","404");
-            return "error";
+            model.addAttribute("message","File not found or name is invalid!!!");
+        } else {
+            FileLoader fileLoader = new FileLoader(uploadPath);
+            java.io.File resultFile = fileLoader.save(loadFile);
+            File fileInfo = fileService.saveFileInfo(
+                    resultFile.getName(),
+                    DateUtil.getUnix(
+                            String.format(
+                                    "%s %s:00",
+                                    date,
+                                    time
+                            )
+                    ),
+                    resultFile.length()
+            );
+            statisticService.add(resultFile.getName(), fileInfo.getId());
+            FileSchedule.addFile(fileInfo);
         }
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()){
-            uploadDir.mkdirs();
-        }
-        String resultFilename = String.format(
-                "%s.%s",
-                UUID.randomUUID().toString(),
-                loadFile.getOriginalFilename()
-        );
-        File filePath = new File(
-                String.format(
-                        "%s/%s",
-                        uploadPath,
-                        resultFilename
-                )
-        );
-        loadFile.transferTo(filePath);
-        by.iba.statistic.loadingfiles.common.File file = fileService.saveFileInfo(
-                resultFilename,
-                DateUtil.getUnix(
-                        String.format(
-                                "%s %s:00",
-                                date,
-                                time
-                        )
-                ),
-                filePath.length()
-        );
-        statisticService.add(resultFilename, file.getId());
-        return "redirect:/";
+        return "head";
     }
+
 }

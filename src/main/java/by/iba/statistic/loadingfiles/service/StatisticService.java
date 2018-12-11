@@ -15,6 +15,8 @@ public class StatisticService {
     private StatisticRepo statisticRepo;
     @Value("${upload.path}")
     private String filePath;
+    private int i = 0;
+
     public List<Statistic> add(String filename, long id){
         String currentPath = String.format(
                 "%s/%s",
@@ -25,15 +27,19 @@ public class StatisticService {
         return statisticRepo.saveAll(fileReader.read(id));
     }
 
-    public List<Statistic> statisticsListAll() {
-        return statisticRepo.findAll();
-    }
-
-    public List<Statistic> statisticListById(Long id) {
+    public List<Statistic> getStatisticById(Long id) {
         return statisticRepo.findByFileId(id);
     }
 
-    public List<Statistic> statListByClassName(String className) {
+    public List<Statistic> getAllStatistic() {
+        return statisticRepo.findAll();
+    }
+
+    public List<Statistic> getStatisticByClassName(String className) {
         return statisticRepo.findByClassName(className);
+    }
+
+    public List<Statistic> getDuplicate() {
+        return statisticRepo.findDuplicate();
     }
 }

@@ -1,7 +1,8 @@
 <#import "parts/common.ftl" as c>
 <#import "parts/tables.ftl" as table>
+<#import  "parts/tableNavs.ftl" as navs>
 
 <@c.page>
-<#include "parts/tableNavs.ftl">
- <@table.files></@table.files>
+ <@navs.tableNav/>
+ <@table.files/>
 </@c.page>

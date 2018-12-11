@@ -4,7 +4,7 @@ import by.iba.statistic.loadingfiles.common.File;
 import by.iba.statistic.loadingfiles.common.Statistic;
 
 public class ParserUtil {
-    public static Statistic getStatistic(String line){
+    public static Statistic getStatistic(String line) {
         String data[] = line.split(",");
         return new Statistic(
                 new File(),

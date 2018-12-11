@@ -1,5 +1,8 @@
 <form action="/file" class="fileLoader" method="post" enctype="multipart/form-data">
     <h1>Load statistic file</h1>
+    <#if message??>
+        <div class="alert alert-danger" role="alert">${message}</div>
+    </#if>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>

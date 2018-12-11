@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,15 @@ public class FileService {
                 date,
                 length,
                 resultFilename,
-                Instant.now().getEpochSecond()
+                Instant.now().atZone(ZoneId.of("UTC+00:00")).toEpochSecond()
         ));
     }
 
-    public List<File> filesListAll() {
+    public List<File> fileList(){
+        return fileRepo.findAll();
+    }
+
+    public List<File> filesAllNormaliseName() {
         List<File> files = new ArrayList<>();
         for (File f :
                 fileRepo.findAll()) {
@@ -40,5 +45,9 @@ public class FileService {
             files.add(f);
         }
         return files;
+    }
+
+    public File updateFile(File x) {
+        return fileRepo.save(x);
     }
 }
