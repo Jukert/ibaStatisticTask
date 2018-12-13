@@ -1,6 +1,7 @@
 package by.iba.statistic.loadingfiles.controller;
 
-import by.iba.statistic.loadingfiles.common.File;
+import by.iba.statistic.loadingfiles.common.DiskSpace;
+import by.iba.statistic.loadingfiles.common.SpecificFile;
 import by.iba.statistic.loadingfiles.common.Statistic;
 import by.iba.statistic.loadingfiles.service.FileService;
 import by.iba.statistic.loadingfiles.service.StatisticService;
@@ -13,9 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class StatisticController {
@@ -25,9 +25,10 @@ public class StatisticController {
     private StatisticService statisticService;
     @Value("${upload.path}")
     private String filePath;
+
     @ResponseBody
     @GetMapping("/api/files")
-    public List<File> files() {
+    public List<SpecificFile> files() {
         return fileService.filesAllNormaliseName();
     }
 
@@ -39,8 +40,8 @@ public class StatisticController {
 
     @ResponseBody
     @GetMapping("/api/classes")
-    public List<Statistic> informationClasses(@RequestParam(name = "name",required = false) String className) {
-        if (className== null)
+    public List<Statistic> informationClasses(@RequestParam(name = "name", required = false) String className) {
+        if (className == null)
             return statisticService.getAllStatistic();
         return statisticService.getStatisticByClassName(className);
     }
@@ -59,12 +60,9 @@ public class StatisticController {
 
     @ResponseBody
     @GetMapping("/api/pies")
-    public Map<String,Long> memoryFilling(){
-        java.io.File dirFiles = new java.io.File(filePath);
-        Map<String,Long> map = new HashMap<>();
-        map.put("fill",dirFiles.length());
-        map.put("free",dirFiles.getFreeSpace());
-        return map;
+    public DiskSpace memoryFilling() {
+        File dirFiles = new File(filePath);
+        return new DiskSpace(dirFiles.length(),dirFiles.getFreeSpace());
     }
 
     @GetMapping(value = {
@@ -76,6 +74,7 @@ public class StatisticController {
     public String pageTables(Model model) {
         return "tableStats";
     }
+
     @GetMapping("/charts")
     public String pageDiagrams() {
         return "diagrams";

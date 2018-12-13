@@ -3,6 +3,6 @@
 <#import  "parts/tableNavs.ftl" as navs>
 
 <@c.page>
- <@navs.tableNav/>
- <@table.files/>
+    <@navs.tableNav/>
+    <@table.specificFiles/>
 </@c.page>

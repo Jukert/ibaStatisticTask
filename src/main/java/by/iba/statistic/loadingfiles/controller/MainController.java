@@ -1,6 +1,6 @@
 package by.iba.statistic.loadingfiles.controller;
 
-import by.iba.statistic.loadingfiles.common.File;
+import by.iba.statistic.loadingfiles.common.SpecificFile;
 import by.iba.statistic.loadingfiles.loader.FileLoader;
 import by.iba.statistic.loadingfiles.service.FileSchedule;
 import by.iba.statistic.loadingfiles.service.FileService;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 @Controller
@@ -26,8 +27,11 @@ public class MainController {
     private StatisticService statisticService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private FileSchedule fileSchedule;
+
     @GetMapping("/")
-    public String main(Model model){
+    public String main(Model model) {
         return "head";
     }
 
@@ -39,24 +43,14 @@ public class MainController {
             Model model
     ) throws IOException {
 
-        if (loadFile == null || loadFile.getOriginalFilename().isEmpty()){
-            model.addAttribute("message","File not found or name is invalid!!!");
+        if (loadFile == null || loadFile.getOriginalFilename().isEmpty()) {
+            model.addAttribute("message", "SpecificFile not found or name is invalid!!!");
         } else {
             FileLoader fileLoader = new FileLoader(uploadPath);
-            java.io.File resultFile = fileLoader.save(loadFile);
-            File fileInfo = fileService.saveFileInfo(
-                    resultFile.getName(),
-                    DateUtil.getUnix(
-                            String.format(
-                                    "%s %s:00",
-                                    date,
-                                    time
-                            )
-                    ),
-                    resultFile.length()
-            );
-            statisticService.add(resultFile.getName(), fileInfo.getId());
-            FileSchedule.addFile(fileInfo);
+            File resultFile = fileLoader.save(loadFile);
+            SpecificFile specificFileInfo = fileService.saveFileInfo(resultFile.getName(), DateUtil.getUnix(String.format("%s %s:00", date, time)), resultFile.length());
+            statisticService.add(resultFile.getName(), specificFileInfo.getId());
+            fileSchedule.addFile(specificFileInfo);
         }
         return "head";
     }

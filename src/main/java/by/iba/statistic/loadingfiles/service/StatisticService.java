@@ -17,18 +17,16 @@ public class StatisticService {
     private String filePath;
     private int i = 0;
 
-    public List<Statistic> add(String filename, long id){
-        String currentPath = String.format(
-                "%s/%s",
-                filePath,
-                filename
-        );
+    public List<Statistic> add(String filename, long id) {
+
+        String currentPath = String.format("%s/%s", filePath, filename);
         FileReader fileReader = new FileReader(currentPath);
+
         return statisticRepo.saveAll(fileReader.read(id));
     }
 
     public List<Statistic> getStatisticById(Long id) {
-        return statisticRepo.findByFileId(id);
+        return statisticRepo.findBySpecificFileId(id);
     }
 
     public List<Statistic> getAllStatistic() {
@@ -40,6 +38,6 @@ public class StatisticService {
     }
 
     public List<Statistic> getDuplicate() {
-        return statisticRepo.findDuplicate();
+        return statisticRepo.findGroupedAll();
     }
 }

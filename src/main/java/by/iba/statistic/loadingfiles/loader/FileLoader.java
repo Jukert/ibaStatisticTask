@@ -19,22 +19,12 @@ public class FileLoader {
     }
 
     public File save(MultipartFile loadFile) throws IOException {
-        File filePath = new File(
-                String.format(
-                        "%s/%s",
-                        uploadPath,
-                        getRandomName(loadFile.getOriginalFilename())
-                )
-        );
+        File filePath = new File(String.format("%s/%s", uploadPath, getRandomName(loadFile.getOriginalFilename())));
         loadFile.transferTo(filePath);
         return filePath;
     }
 
-    private String getRandomName(String name){
-        return String.format(
-                "%s.%s",
-                UUID.randomUUID().toString(),
-                name
-        );
+    private String getRandomName(String name) {
+        return String.format("%s.%s", UUID.randomUUID().toString(), name);
     }
 }

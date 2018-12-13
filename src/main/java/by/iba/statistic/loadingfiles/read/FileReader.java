@@ -20,13 +20,13 @@ public class FileReader {
 
     public List<Statistic> read(long id) {
         List<Statistic> statistics = new ArrayList<>();
-        try(Stream<String> stream = Files.lines(Paths.get(filePath),StandardCharsets.UTF_8)){
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(line -> {
                 Statistic statistic = ParserUtil.getStatistic(line);
-                statistic.getFile().setId(id);
+                statistic.getSpecificFile().setId(id);
                 statistics.add(statistic);
             });
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return statistics;

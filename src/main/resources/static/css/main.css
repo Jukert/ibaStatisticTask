@@ -1,4 +1,4 @@
-.fileLoader{
+.fileLoader {
     width: 30%;
     height: 200px;
     margin-left: 35%;
@@ -9,15 +9,15 @@
     align-items: center;
 }
 
-.table-header{
+.table-header {
     position: relative;
 }
 
-.round-chart{
+.round-chart {
     width: 100%;
 }
 
-.line-chart{
+.line-chart {
     width: 100%;
     margin-right: 10px;
 }

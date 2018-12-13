@@ -47,22 +47,23 @@ columnsMap
     .set(
         "files",
         [
-            { "data": "id" },
-            { "data": function (row) {
-                    return "<a href='' class='file-name' data-id='"+row.id+"' >"+row.name+"</a>";
+            {"data": "id"},
+            {
+                "data": function (row) {
+                    return "<a href='' class='file-name' data-id='" + row.id + "' >" + row.name + "</a>";
                 }
 
             },
-            { "data": "weight" },
+            {"data": "weight"},
             {
                 "data": "saveTime",
-                "render": function(data) {
+                "render": function (data) {
                     return moment.unix(data).format("DD/MM/YYYY HH:mm")
                 }
             },
             {
                 "data": "dateLoad",
-                "render": function(data) {
+                "render": function (data) {
                     return moment.unix(data).format("DD/MM/YYYY HH:mm")
                 }
             }
@@ -71,16 +72,17 @@ columnsMap
     .set(
         "classes",
         [
-            { "data": "id" },
-            { "data": function (row) {
+            {"data": "id"},
+            {
+                "data": function (row) {
                     return row.className;
                 }
             },
-            { "data": "methodName" },
-            { "data": "user" },
+            {"data": "methodName"},
+            {"data": "user"},
             {
                 "data": function (row) {
-                    return moment.unix(row.endTime-row.startTime).format("mm:ss")
+                    return moment.unix(row.endTime - row.startTime).format("mm:ss")
                 }
             }
         ]
@@ -88,13 +90,13 @@ columnsMap
     .set(
         "fileById",
         [
-            { "data": "id" },
-            { "data": "className" },
-            { "data": "methodName" },
-            { "data": "user" },
+            {"data": "id"},
+            {"data": "className"},
+            {"data": "methodName"},
+            {"data": "user"},
             {
                 "data": function (row) {
-                    return moment.unix(row.endTime-row.startTime).format("mm:ss")
+                    return moment.unix(row.endTime - row.startTime).format("mm:ss")
                 }
             }
         ]
@@ -102,11 +104,11 @@ columnsMap
     .set(
         "statistic",
         [
-            { "data": "0" },
-            { "data": "0" },
-            { "data": "1" },
-            { "data": "2" },
-            { "data": "3" },
+            {"data": "0"},
+            {"data": "0"},
+            {"data": "1"},
+            {"data": "2"},
+            {"data": "3"},
             {"data": "4"},
             {"data": "5"}
         ]

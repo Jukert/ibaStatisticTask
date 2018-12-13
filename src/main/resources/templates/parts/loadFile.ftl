@@ -1,5 +1,5 @@
-<form action="/file" class="fileLoader" method="post" enctype="multipart/form-data">
-    <h1>Load statistic file</h1>
+<form action="/specificFile" class="fileLoader" method="post" enctype="multipart/form-data">
+    <h1>Load statistic specificFile</h1>
     <#if message??>
         <div class="alert alert-danger" role="alert">${message}</div>
     </#if>
@@ -7,15 +7,18 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
         </div>
-        <div class="custom-file">
-            <input type="file" name="loadFile" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        <div class="custom-specificFile">
+            <input type="specificFile" name="loadFile" class="custom-specificFile-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01">
+            <label class="custom-specificFile-label" for="inputGroupFile01">Choose specificFile</label>
         </div>
     </div>
 
     <div class="input-group mb-2">
         <div class="input-group-prepend">
-            <div class="input-group-text" data-toggle="tooltip" data-placement="top" title="Time file destroing">date/time</div>
+            <div class="input-group-text" data-toggle="tooltip" data-placement="top" title="Time specificFile destroing">
+                date/time
+            </div>
         </div>
         <input type="text" class="form-control" placeholder="2018-12-03" name="date" id="datepicker">
         <input type="time" name="time" class="form-control" id="inlineFormInputGroup" placeholder="Username">

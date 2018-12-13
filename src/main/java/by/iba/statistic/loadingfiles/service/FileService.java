@@ -1,6 +1,6 @@
 package by.iba.statistic.loadingfiles.service;
 
-import by.iba.statistic.loadingfiles.common.File;
+import by.iba.statistic.loadingfiles.common.SpecificFile;
 import by.iba.statistic.loadingfiles.repo.FileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,12 +13,15 @@ import java.util.List;
 
 @Service
 public class FileService {
+    private final int FILE_NAME = 1;
+    private final int FILE_EXTENSION = 2;
     @Autowired
     private FileRepo fileRepo;
     @Value("${upload.path}")
     private String filePath;
-    public File saveFileInfo(String resultFilename, long date, long length) {
-        return fileRepo.save(new File(
+
+    public SpecificFile saveFileInfo(String resultFilename, long date, long length) {
+        return fileRepo.save(new SpecificFile(
                 date,
                 length,
                 resultFilename,
@@ -26,28 +29,23 @@ public class FileService {
         ));
     }
 
-    public List<File> fileList(){
+    public List<SpecificFile> fileList() {
         return fileRepo.findAll();
     }
 
-    public List<File> filesAllNormaliseName() {
-        List<File> files = new ArrayList<>();
-        for (File f :
-                fileRepo.findAll()) {
+    public List<SpecificFile> filesAllNormaliseName() {
+        List<SpecificFile> specificFiles = new ArrayList<>();
+
+        for (SpecificFile f : fileRepo.findAll()) {
             String data[] = f.getName().split("\\.");
-            f.setName(
-                    String.format(
-                            "%s.%s",
-                            data[1],
-                            data[2]
-                    )
-            );
-            files.add(f);
+            f.setName(String.format("%s.%s", data[FILE_NAME], data[FILE_EXTENSION]));
+            specificFiles.add(f);
         }
-        return files;
+
+        return specificFiles;
     }
 
-    public File updateFile(File x) {
+    public SpecificFile updateFile(SpecificFile x) {
         return fileRepo.save(x);
     }
 }
