@@ -23,7 +23,7 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/tables">Tables statistic</a>
+                <a class="nav-link" href="/tables/files">Tables statistic</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/charts">Charts</a>

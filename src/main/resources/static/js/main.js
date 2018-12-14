@@ -5,6 +5,7 @@ $(function () {
 $(document).ready(function () {
     let pathName = window.location.pathname;
     let loadTable = function (columns, header, page) {
+        $(".table-header>h1").text(ucFirst(page));
         $("#table_id>thead").html(header);
         let t = $('#table_id').DataTable({
             destroy: true,
@@ -22,6 +23,12 @@ $(document).ready(function () {
             });
         }).draw();
     };
+
+    function ucFirst(str) {
+        if (!str) return str;
+        return str[0].toUpperCase() + str.slice(1);
+    }
+
     let loadCharts = function () {
         let ctx = document.getElementById("round").getContext('2d');
         let bar = document.getElementById("line").getContext('2d');
@@ -114,8 +121,6 @@ $(document).ready(function () {
         let header = headersMap.get("fileById");
         if (column != undefined && header != undefined) {
             loadTable(column, header, "files/" + $(this).attr("data-id"));
-        } else {
-            //error
         }
     });
 });

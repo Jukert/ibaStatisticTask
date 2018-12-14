@@ -1,6 +1,7 @@
 package by.iba.statistic.loadingfiles.controller;
 
 import by.iba.statistic.loadingfiles.common.DiskSpace;
+import by.iba.statistic.loadingfiles.common.Percentile;
 import by.iba.statistic.loadingfiles.common.SpecificFile;
 import by.iba.statistic.loadingfiles.common.Statistic;
 import by.iba.statistic.loadingfiles.service.FileService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -62,14 +65,27 @@ public class StatisticController {
     @GetMapping("/api/pies")
     public DiskSpace memoryFilling() {
         File dirFiles = new File(filePath);
-        return new DiskSpace(dirFiles.length(),dirFiles.getFreeSpace());
+        return new DiskSpace(dirFiles.length(), dirFiles.getFreeSpace());
+    }
+
+    @ResponseBody
+    @GetMapping("api/percentiles")
+    public List<Percentile> countPercentile() {
+        List<Statistic> statistics = statisticService.getAllStatistic();
+        return new ArrayList<>(Collections.singleton(new Percentile(
+                statistics.get(25 / 100 * statistics.size()).getEndTime() - statistics.get(25 / 100 * statistics.size()).getStartTime(),
+                statistics.get(50 / 100 * statistics.size()).getEndTime() - statistics.get(25 / 100 * statistics.size()).getStartTime(),
+                statistics.get(75 / 100 * statistics.size()).getEndTime() - statistics.get(25 / 100 * statistics.size()).getStartTime(),
+                statistics.get(statistics.size() - 1).getEndTime() - statistics.get(25 / 100 * statistics.size()).getStartTime()
+        )));
     }
 
     @GetMapping(value = {
             "/tables",
             "/tables/files",
             "/tables/classes",
-            "/tables/statistic"
+            "/tables/statistic",
+            "/tables/percentiles"
     })
     public String pageTables(Model model) {
         return "tableStats";

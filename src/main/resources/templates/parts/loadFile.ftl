@@ -1,4 +1,4 @@
-<form action="/specificFile" class="fileLoader" method="post" enctype="multipart/form-data">
+<form action="/file" class="fileLoader" method="post" enctype="multipart/form-data">
     <h1>Load statistic specificFile</h1>
     <#if message??>
         <div class="alert alert-danger" role="alert">${message}</div>
@@ -7,10 +7,10 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
         </div>
-        <div class="custom-specificFile">
-            <input type="specificFile" name="loadFile" class="custom-specificFile-input" id="inputGroupFile01"
+        <div class="custom-file">
+            <input type="file" name="loadFile" class="custom-file-input" id="inputGroupFile01"
                    aria-describedby="inputGroupFileAddon01">
-            <label class="custom-specificFile-label" for="inputGroupFile01">Choose specificFile</label>
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
     </div>
 

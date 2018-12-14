@@ -42,6 +42,16 @@ headersMap
         "            <th scope=\"col\">Average run-time</th>\n" +
         "            <th scope=\"col\">Count</th>\n" +
         "        </tr>"
+    )
+    .set(
+        "percentiles",
+        "<tr>\n" +
+        "            <th scope=\"col\">№</th>\n" +
+        "            <th scope=\"col\">25% percentile</th>\n" +
+        "            <th scope=\"col\">50% percentile</th>\n" +
+        "            <th scope=\"col\">75% percentile</th>\n" +
+        "            <th scope=\"col\">100% percentile</th>\n" +
+        "        </tr>"
     );
 columnsMap
     .set(
@@ -111,5 +121,15 @@ columnsMap
             {"data": "3"},
             {"data": "4"},
             {"data": "5"}
+        ]
+    )
+    .set(
+        "percentiles",
+        [
+            {"data": "percentile_25"},
+            {"data": "percentile_25"},
+            {"data": "percentile_50"},
+            {"data": "percentile_75"},
+            {"data": "percentile_100"}
         ]
     );
